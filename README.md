@@ -1,4 +1,4 @@
-# Vision Safety AI: How I Saved Construction Managers 12 Hours/Week Using vLLMs
+# Vision Safety AI: How I Saved Construction Managers 15 Hours/Week Using vLLMs
 
 ## Introduction
 
