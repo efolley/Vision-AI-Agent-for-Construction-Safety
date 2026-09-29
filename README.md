@@ -4,6 +4,11 @@ This repository is the foundation for an enterprise, evidence-first construction
 
 > **Status:** The structure and architecture below are the target production design. Services are scaffolded but not yet implemented.
 
+## Videos
+
+- [BuiltWorld AI Conference Pitch](https://youtu.be/3Mo-gH-o2K8)
+- [Full demo walkthrough](https://youtu.be/pTsCXAnURA0)
+
 ## Architecture
 
 The system is asynchronous and evidence-first. An upload creates a durable inspection job; specialist workers inspect only relevant regions; a decision gate produces either a reviewable event or a human-in-the-loop (HITL) task. AI output is never itself proof of an OSHA violation.
