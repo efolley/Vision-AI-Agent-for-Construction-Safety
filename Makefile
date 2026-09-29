@@ -1,24 +1,24 @@
-PYTHON ?= python3
+UV ?= uv
 
 .PHONY: bootstrap format format-check lint typecheck test check
 
 bootstrap:
-	$(PYTHON) -m pip install -e ".[dev]"
+	$(UV) sync --all-extras
 
 format:
-	$(PYTHON) -m ruff format packages/shared/python tests
+	$(UV) run ruff format packages/shared/python packages/contracts/python src tests
 
 format-check:
-	$(PYTHON) -m ruff format --check packages/shared/python tests
+	$(UV) run ruff format --check packages/shared/python packages/contracts/python src tests
 
 lint:
-	$(PYTHON) -m ruff check packages/shared/python tests
+	$(UV) run ruff check packages/shared/python packages/contracts/python src tests
 
 typecheck:
-	$(PYTHON) -m mypy packages/shared/python
+	$(UV) run mypy
 
 test:
-	$(PYTHON) -m unittest discover -s tests/phase0 -p "test_*.py" -v
-	$(PYTHON) -m unittest discover -s tests/phase1 -p "test_*.py" -v
+	$(UV) run python -m unittest discover -s tests/phase0 -p "test_*.py" -v
+	$(UV) run python -m unittest discover -s tests/phase1 -p "test_*.py" -v
 
 check: format-check lint typecheck test

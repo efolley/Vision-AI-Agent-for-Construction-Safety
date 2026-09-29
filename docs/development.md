@@ -2,20 +2,18 @@
 
 ## Prerequisites
 
-- Python 3.12 or newer
+- Python 3.12 or newer and [uv](https://docs.astral.sh/uv/)
 - Docker and Docker Compose (required once infrastructure services are added)
 
 ## First run
 
 ```bash
 cp .env.example .env
-python3 -m venv .venv
-. .venv/bin/activate
-make bootstrap
+uv sync --all-extras
 make check
 ```
 
-`make check` runs formatting verification, linting, strict type checking, and the Phase 0 test suite. Use `make format` to apply formatting.
+`uv` owns the project environment, dependency resolution, and `uv.lock`. Do not install project dependencies directly with `pip`. `make check` runs formatting verification, linting, strict type checking, and all tests. Use `make format` to apply formatting.
 
 ## Configuration and secrets
 
@@ -29,10 +27,10 @@ make check
 
 | Command | Purpose |
 | --- | --- |
-| `make bootstrap` | Install the development toolchain. |
+| `make bootstrap` | Resolve and install the development toolchain through uv. |
 | `make format` | Apply Ruff formatting. |
 | `make format-check` | Verify formatting without modifying files. |
 | `make lint` | Run Ruff lint rules. |
 | `make typecheck` | Run strict mypy checks. |
-| `make test` | Run the standard-library Phase 0 tests. |
+| `make test` | Run all Python tests through uv. |
 | `make check` | Run all verification commands. |
