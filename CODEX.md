@@ -10,14 +10,15 @@ The system must optimize for **safety, auditability, reliability, and cost contr
 
 Build these components in this order:
 
-1. `services/api-gateway`: OIDC/JWT authentication, tenant authorization, rate limits, Redis-backed idempotency, request IDs, and upload policy.
-2. `services/ingestion`: validate media, store originals, create inspection records, and publish `inspection.requested.v1` only after durable persistence.
+1. `src/api-gateway`: OIDC/JWT authentication, tenant authorization, rate limits, Redis-backed idempotency, request IDs, and upload policy.
+2. `src/ingestion`: validate media, store originals, create inspection records, and publish `inspection.requested.v1` only after durable persistence.
 3. `packages/contracts`: versioned schemas for API payloads and Kafka events. Contract changes are backward compatible or released under a new version.
 4. Event workers: scene analyzer → ROI router → PPE/scaffold/proximity inspectors → evidence synthesizer.
-5. `services/osha-retrieval`: hybrid lexical and Milvus vector retrieval over a versioned OSHA corpus; return exact excerpts, source versions, and scores.
-6. `services/llm-judge`: evaluate whether evidence supports the candidate claim and whether the cited OSHA criterion is relevant.
-7. `services/decision-gate`: validate all input, apply calibrated thresholds and severity policy, then persist either a safety event or HITL task.
-8. `services/hitl-service` and `apps/web`: reviewer work queue, evidence display, confirmation/correction/dismissal, and immutable audit actions.
+5. `src/osha-retrieval`: hybrid lexical and Milvus vector retrieval over a versioned OSHA corpus; return exact excerpts, source versions, and scores.
+6. `src/llm-judge`: evaluate whether evidence supports the candidate claim and whether the cited OSHA criterion is relevant.
+7. `src/decision-gate`: validate all input, apply calibrated thresholds and severity policy, then persist either a safety event or HITL task.
+8. `src/evidence-renderer`: deterministically render validated ROI boxes/polygons, severity, confidence, and OSHA citations; preserve the original media separately.
+9. `src/hitl-service` and `apps/web`: reviewer work queue, evidence display, confirmation/correction/dismissal, and immutable audit actions.
 
 ## System boundaries
 
@@ -43,6 +44,7 @@ Build these components in this order:
 - Specialist responses must include observation, ROI, visual rationale, confidence, and abstention reason when applicable.
 - The synthesizer reconciles evidence; it must reject conflicts rather than averaging them into a result.
 - The LLM-as-a-Judge is an evaluation signal, not the sole policy decision. The decision gate must enforce deterministic confidence/severity/HITL rules.
+- The Evidence Renderer consumes only schema-validated decisions and coordinates. It uses deterministic image tooling (for example OpenCV or Pillow); no LLM draws annotations.
 - Use RAG for current, citeable OSHA criteria. Do not fine-tune on regulatory text unless an ADR and offline evaluation demonstrate a clear need.
 - Persist model name, provider, prompt version, retrieval corpus version, token counts, cost, latency, and output schema version with each decision.
 
