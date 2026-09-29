@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vision-safety-platform"
+version = "0.1.0"
+description = "Enterprise construction-safety inspection platform"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.13",
+  "pre-commit>=4.0",
+  "ruff>=0.8",
+]
+
+[tool.setuptools.packages.find]
+where = ["packages/shared/python"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["packages/shared/python", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "packages/shared/python"
+files = ["packages/shared/python"]

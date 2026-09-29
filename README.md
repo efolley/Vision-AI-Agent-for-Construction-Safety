@@ -156,9 +156,10 @@ Alert on Kafka consumer lag or DLQ growth, provider failures, P95 latency/cost o
 
 ### Phase 0 — Foundation
 
-- [ ] Add workspace tooling, dependency manifests, formatting, linting, type checking, and test commands.
-- [ ] Define environment configuration, secret-management interface, and local development workflow.
-- [ ] Create ADRs for service boundaries, Kafka, PostgreSQL, Milvus, and model-provider strategy.
+- [x] Add workspace tooling, dependency manifests, formatting, linting, type checking, and test commands.
+- [x] Define environment configuration, secret-management interface, and local development workflow.
+- [x] Create ADRs for service boundaries, Kafka, PostgreSQL, Milvus, and model-provider strategy.
+- [x] Add and pass 18 Phase 0 tests for configuration, secrets, tooling, and ADR coverage.
 
 ### Phase 1 — Secure ingestion and durable workflow
 
