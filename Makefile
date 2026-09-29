@@ -19,5 +19,6 @@ typecheck:
 
 test:
 	$(PYTHON) -m unittest discover -s tests/phase0 -p "test_*.py" -v
+	$(PYTHON) -m unittest discover -s tests/phase1 -p "test_*.py" -v
 
 check: format-check lint typecheck test

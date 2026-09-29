@@ -7,7 +7,12 @@ name = "vision-safety-platform"
 version = "0.1.0"
 description = "Enterprise construction-safety inspection platform"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+  "fastapi>=0.115",
+  "httpx>=0.28",
+  "jsonschema>=4.23",
+  "sqlalchemy>=2.0",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -17,18 +22,22 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["packages/shared/python"]
+where = ["packages/shared/python", "packages/contracts/python", "src/api-gateway/python", "src/ingestion/python"]
 
 [tool.ruff]
 target-version = "py312"
 line-length = 100
-src = ["packages/shared/python", "tests"]
+src = ["packages/shared/python", "packages/contracts/python", "src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501", "E701", "E702", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["E402"]
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
-mypy_path = "packages/shared/python"
-files = ["packages/shared/python"]
+mypy_path = "packages/shared/python:packages/contracts/python:src/api-gateway/python:src/ingestion/python"
+files = ["packages/shared/python", "packages/contracts/python", "src/api-gateway/python", "src/ingestion/python"]

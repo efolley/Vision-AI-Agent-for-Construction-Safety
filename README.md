@@ -1,4 +1,27 @@
-# Production Agentic Vision System for Construction Safety
+# Vision Safety AI: How I Saved Construction Managers 15 Hours/Week Using vLLMs
+
+## Introduction
+
+Construction is the backbone of the US economy, but "bad data" costs the global construction industry over $1.84 trillion annually ([see the study])(https://www.msuite.com/bad-construction-data-costs-industry-1-8-trillion-worldwide/). I was shocked by this statistic and went directly to the right people to validate it. **After conducting 56 interviews in 3 weeks**, the pattern was clear among top 10 EPC companies. I started implementing an MVP to share with 12 early adopters, and was invited to present the solution at the [BuiltWorlds AI Conference](https://builtworlds.com/news/aiml-demos/#:~:text=context%2Drich%20responses.-,Modalina%20AI,-Modalina%20AI%2C%20a).
+
+#### Problem: **95%** of construction jobsite data goes unused
+
+#### Solution: Vision AI Agent saves safety supervisors **~12 hours per week** by autonomously detecting violations from visual data
+
+### Why Current Solutions Suck
+
+Safety officers spend **15+ hours per week** reviewing footage with clipboards. The process is inconsistent, slow, and misses violations. Custom computer-vision models can **cost $100K+ and take at least three months to train**, which is too expensive for most companies.
+
+### Why Now?
+
+Recent advances in LLM/VLM-s and vision transformers make this practical:
+
+- Accurate on real-world images
+- Fast to deploy
+
+---
+
+## Production System Design
 
 This repository is the foundation for an enterprise, evidence-first construction-safety platform. The prior MVP implementation is preserved on the `old-dev` branch.
 
@@ -163,9 +186,10 @@ Alert on Kafka consumer lag or DLQ growth, provider failures, P95 latency/cost o
 
 ### Phase 1 — Secure ingestion and durable workflow
 
-- [ ] Implement API Gateway authentication, tenant authorization, rate limits, and Redis idempotency.
-- [ ] Implement ingestion validation, object-storage upload, PostgreSQL inspection records, and outbox publishing.
-- [ ] Define and validate versioned Kafka contracts, consumer idempotency, retry, and DLQ behavior.
+- [x] Implement API Gateway authentication, tenant authorization, rate limits, and Redis idempotency.
+- [x] Implement ingestion validation, object-storage upload abstraction, SQLAlchemy-backed inspection records, and outbox publishing.
+- [x] Define and validate versioned Kafka contracts, consumer idempotency, retry, and DLQ behavior.
+- [x] Add and pass 16 Phase 1 tests, including authenticated API-to-outbox workflow coverage.
 
 ### Phase 2 — Evidence pipeline
 
